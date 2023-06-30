@@ -52,52 +52,52 @@ void _delay(float seconds) { // acts like a timer: the program continues what it
 }
 
 void loop() {
-  if (Serial.available() > 0) {
-    String data = Serial.readString();
-    data.trim();
-    if(data == "move"){
-      move(1, 35/100.0 * 255);
-      _delay(0.5);
-      while(linefollower_2.readSensors()!=0){ //while not both line follower captors are outside of the white line
-        align();
-        move(1, 45/100.0 * 255);
-        _delay(0.1);
-      }
-      motor_9.run(0);
-      motor_10.run(0);
-    
-    }
-    else if(data == "left"){
+  while(Serial.available() == 0) delay(1);
+  String data = Serial.readString();
+  data.trim();
+  if(data.indexOf("move")+1){
+    move(1, 35/100.0 * 255);
+    _delay(0.5);
+    while(linefollower_2.readSensors()!=0){ //while not both line follower captors are outside of the white line
+      align();
       move(1, 45/100.0 * 255);
-      _delay(0.25);
-      while(linefollower_2.readSensors()!=0){
-        align();
-        motor_9.run(  -1* 22/100.0*255);
-        motor_10.run(46/100.0*255);
-        _delay(0.1);
-      }
-      motor_9.run(0);
-      motor_10.run(0);
+      _delay(0.1);
     }
-    else if(data == "right"){
-      move(1, 45/100.0 * 255);
-      _delay(0.25);
-      while(linefollower_2.readSensors()!=0){
-        align();
-        motor_9.run(-1*46/100.0*255);
-        motor_10.run(22/100.0*255);
-        _delay(0.1);
-      }
-      motor_9.run(0);
-      motor_10.run(0);
-    }
-    else{
-      Serial.println("N"); //in case the command input doesn't exist
-      return;
-    }
-    Serial.println("O"); //ACK
+    motor_9.run(0);
+    motor_10.run(0);
+  
   }
+  else if(data.indexOf("left")+1){
+    move(1, 45/100.0 * 255);
+    _delay(0.25);
+    while(linefollower_2.readSensors()!=0){
+      align();
+      motor_9.run(  -1* 22/100.0*255);
+      motor_10.run(46/100.0*255);
+      _delay(0.1);
+    }
+    motor_9.run(0);
+    motor_10.run(0);
+  }
+  else if(data.indexOf("right")+1){
+    move(1, 45/100.0 * 255);
+    _delay(0.25);
+    while(linefollower_2.readSensors()!=0){
+      align();
+      motor_9.run(-1*46/100.0*255);
+      motor_10.run(22/100.0*255);
+      _delay(0.1);
+    }
+    motor_9.run(0);
+    motor_10.run(0);
+  }
+  else{
+    Serial.println("N"); //in case the command input doesn't exist
+    return;
+  }
+  Serial.println("O"); //ACK
 }
+
 
 void _loop() {
 }
