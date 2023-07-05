@@ -38,7 +38,7 @@ def saveToFile(graph: List[List[Tile]],file_name: str) -> None:
     """
     with open(file_name,"w") as f:
         f.write("## DIMENSION ##\n")
-        f.write("row:{} column:{}\n".format(num_cells_y, num_cells_x))
+        f.write(f"row:{num_cells_y} column:{num_cells_x}\n")
         f.write("## GROUND ##")
         for y in range(num_cells_y):
             f.write("\n")
@@ -67,7 +67,7 @@ def define_vertical_points():
     l = []
     for x in range(num_cells_x):
         for y in range(num_cells_y+1):
-            l.append( ((offset + 0.5*cell_size + x * cell_size, offset + y * cell_size), x, y, "v"))
+            l.append(((offset + 0.5*cell_size + x * cell_size, offset + y * cell_size), x, y, "v"))
     return l
 
 def define_horizontal_points():
@@ -222,7 +222,7 @@ vertical_points = define_vertical_points()
 
 # Initialize the GUI
 root = tk.Tk()
-root.title("Grid")
+root.title("Editeur de terrain")
 
 
 # Calculate the size of the canvas based on the number of cells and cell size
