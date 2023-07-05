@@ -99,6 +99,7 @@ def compute_tiles_from_point(point):
         if point[1]  < num_cells_x + 1:
             tiles[(point[1], point[2])] = "W"
     return tiles
+
 def add_to_graph(point1, point2):
     """
     Adds/Remove the segment between point1 and point2. If both are already in the tile, removes them, if one of them
@@ -217,6 +218,7 @@ def draw_grid():
                         canvas.create_arc(pos_center[0] + 2*offset_dict[dir1][0] + offset, pos_center[1] + 2*offset_dict[dir1][1] + offset,
                                    pos_center[0] + 2*offset_dict[dir2][0] + offset, pos_center[1] + 2*offset_dict[dir2][1] + offset, start=start, extent=extent, style=tk.ARC, width=5)
     saveToFile(graph, file_name)
+
 horizontal_points = define_horizontal_points()
 vertical_points = define_vertical_points()
 
